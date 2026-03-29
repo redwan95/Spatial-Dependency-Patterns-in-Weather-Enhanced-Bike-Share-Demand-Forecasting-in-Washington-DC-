@@ -144,7 +144,7 @@ If you use this code, please cite:
   author  = {Kabir, S M Redwan and {Kabir Zisha}, Farhana},
   journal = {Findings},
   year    = {2026},
-  doi     = {[TO BE ASSIGNED]}
+  doi     = {(https://doi.org/10.5281/zenodo.19310802)}
 }
 
 ```
