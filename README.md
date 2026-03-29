@@ -90,14 +90,6 @@ If you use this code, please cite:
   doi     = {[TO BE ASSIGNED]}
 }
 
-@inproceedings{miao2025spatially,
-  author    = {Miao, Congcong and He, Suining and Li, Yuyao and Zhang, Chuanrong},
-  title     = {A spatially-adapted {SHAP} approach for interpreting deep bike usage
-               learning and prediction},
-  booktitle = {Proceedings of SIGSPATIAL '25},
-  year      = {2025},
-  doi       = {10.1145/3748636.3763207}
-}
 ```
 
 ## Data Sources
