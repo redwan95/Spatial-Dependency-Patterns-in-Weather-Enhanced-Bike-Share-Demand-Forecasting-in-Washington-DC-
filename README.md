@@ -6,7 +6,7 @@
 [![TensorFlow 2.x](https://img.shields.io/badge/TensorFlow-2.x-orange)](https://tensorflow.org)
 [![Findings Journal](https://img.shields.io/badge/Submitted-Findings%20Journal-purple)](https://findingspress.org)
 
-> **Paper:** Kabir & Kabir Zisha (2026), *Findings Journal* (Revised submission)  
+> **Paper:** Kabir & Zisha (2026), *Findings Journal* (Revised submission)  
 > **Replicates:** Miao et al. (2025), SIGSPATIAL — extended to Washington DC with weather inputs  
 > **Data:** 251,633 Capital Bikeshare trips, January 2026
 
