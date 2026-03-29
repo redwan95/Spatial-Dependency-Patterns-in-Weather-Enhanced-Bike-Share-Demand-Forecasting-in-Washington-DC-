@@ -42,15 +42,6 @@
 3. **Runtime → Run all** (GPU recommended: Runtime → Change runtime type → T4 GPU)
 4. Download `/content/outputs/` when complete (~45–60 min on GPU)
 
-## New Analysis Cells (Reviewer-Requested)
-
-| Cell | Analysis | Produces |
-|------|----------|---------|
-| 12b | Weather ablation | Supplemental Table S4, Figure S3 |
-| 12c | Baseline comparison | Supplemental Table S3 |
-| 12d | Trip-duration sensitivity (4h/6h/12h) | Supplemental Table S1 |
-| 12e | Grid-resolution sensitivity (6×6/10×10) | Supplemental Table S2 |
-| 16b | Temperature vs. ridership | Supplemental Figure S4 |
 
 ## Run Locally
 
