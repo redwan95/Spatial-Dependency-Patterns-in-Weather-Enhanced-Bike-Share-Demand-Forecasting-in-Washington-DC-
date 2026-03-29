@@ -11,7 +11,35 @@
 > **Data:** 251,633 Capital Bikeshare trips, January 2026
 
 ---
+## 📌 Overview
 
+This repository contains the full implementation of a **spatially-adapted permutation-based dependency analysis** framework for urban bike-sharing demand, applied to Washington DC Capital Bikeshare trip data from January 2026. It accompanies the paper:
+
+> **"Beyond Proximity: Spatial Dependency in Washington DC Bike-Sharing — Weather-Augmented ConvLSTM Evidence"**  
+> *Findings Journal — Transport Research (Submitted 2026)*
+
+The core question: **do spatial dependencies in bike-sharing demand follow geographic proximity, or are they governed by functional urban linkages?** We answer this by training ConvLSTM models for member and casual users separately, augmenting them with real weather data, and computing a 64×64 permutation-based spatial dependency matrix Φ for each user type.
+
+---
+
+## 🎯 Aim & Scope
+
+| | |
+|---|---|
+| **Study area** | Washington DC, USA |
+| **Data source** | [Capital Bikeshare Open Data](https://capitalbikeshare.com/system-data) |
+| **Period** | January 2026 (251,633 trips) |
+| **Spatial resolution** | 8×8 regular grid (64 cells, ≈1,500 m each) |
+| **Temporal resolution** | 30-minute intervals |
+| **User types** | Member (205,329 trips) and Casual (46,304 trips) |
+| **Weather source** | [Open-Meteo Historical Archive API](https://open-meteo.com/) |
+
+### What this project establishes:
+1. Whether spatial influence in bike-sharing conforms to the **geographic proximity assumption**
+2. How **member and casual users differ** in their spatial dependency structures
+3. Whether **weather augmentation** improves winter demand prediction beyond spatiotemporal models alone
+4. A replication and extension of [Miao et al. (2025)](https://doi.org/10.1145/3748636.3763207) from NYC to a structurally distinct city
+   
 ## What this repository contains
 
 | File | Description |
@@ -42,6 +70,44 @@
 3. **Runtime → Run all** (GPU recommended: Runtime → Change runtime type → T4 GPU)
 4. Download `/content/outputs/` when complete (~45–60 min on GPU)
 
+## ⚙️ How the Script Works
+
+The pipeline runs in **18 sequential cells** in Google Colab:
+
+```
+ DATA               FEATURES              MODEL              ANALYSIS
+  │                    │                    │                    │
+  ▼                    ▼                    ▼                    ▼
+Capital           Weather API          ConvLSTM           Permutation
+Bikeshare    ──►  (Open-Meteo)   ──►  (3 layers)    ──►  Dependency
+Trip CSV          + Temporal           + Dense             Matrix Φ
+                    Features            Branch           (64×64 per
+                  (7 inputs)          Separate            user type)
+                                    Member/Casual
+```
+## 🧠 Model Architecture
+
+```
+Spatial Input                    External Input
+[batch, 4, 8, 8, 2]             [batch, 7]
+        │                              │
+   ConvLSTM2D (64)                Dense (32, ReLU)
+   BatchNorm + Dropout(0.2)       BatchNorm
+        │                         Dense (64, ReLU)
+   ConvLSTM2D (64)                     │
+   BatchNorm + Dropout(0.2)       Reshape (1,1,64)
+        │                         UpSampling2D (8×8)
+   ConvLSTM2D (64)                     │
+   BatchNorm                           │
+        └──────────┬────────────────────┘
+                   │
+              Concatenate
+                   │
+            Conv2D(2, 1×1, ReLU)
+                   │
+           Output [batch, 8, 8, 2]
+           (pickups + dropoffs)
+```
 
 ## Run Locally
 
